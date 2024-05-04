@@ -15,7 +15,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class UsersPojo {
 
-    @Email
     private String email;
 
     private String firstName;

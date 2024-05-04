@@ -5,8 +5,12 @@ import com.example.userdataapi.interfaces.IUserDataParser;
 import com.example.userdataapi.pojos.UsersPojo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -26,16 +30,17 @@ public class JsonUserDataParser implements IUserDataParser {
 
         ObjectMapper objectMapper = new ObjectMapper();
 
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
+        objectMapper.registerModule(new JavaTimeModule());
 
         try {
             UsersPojo[] readPojo = objectMapper.readValue(fileToUpload.getInputStream(), UsersPojo[].class);
 
             for(UsersPojo usersPojo : readPojo){
-                if(birthDateValidator.validateUserBirthDate(usersPojo.getBirthDate()))
+                if(birthDateValidator.validateUserBirthDate(usersPojo.getBirthDate()) && isRequirementFieldAreEmpty(usersPojo)
+                        && isValidEmail(usersPojo.getEmail()))
                     uploadedPojo.add(usersPojo);
                 else
-                    throw new IllegalArgumentException("User must be older 18!");
+                   continue;
             }
 
         } catch (IOException e) {
@@ -45,4 +50,17 @@ public class JsonUserDataParser implements IUserDataParser {
         return uploadedPojo;
 
     }
+
+    private boolean isRequirementFieldAreEmpty(UsersPojo validPojo){
+
+        if(validPojo.getEmail() != null && validPojo.getFirstName() != null && validPojo.getLastName() != null && validPojo.getBirthDate() != null)
+            return true;
+        else
+            return false;
+    }
+
+    private boolean isValidEmail(String email) {
+        return email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
+    }
+
 }
