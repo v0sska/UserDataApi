@@ -2,12 +2,17 @@ package com.example.userdataapi.services;
 
 import com.example.userdataapi.entities.Users;
 import com.example.userdataapi.interfaces.IBirthDateValidator;
+import com.example.userdataapi.interfaces.IUserDataParser;
 import com.example.userdataapi.interfaces.IUserService;
+import com.example.userdataapi.pojos.UsersPojo;
 import com.example.userdataapi.repositories.UsersRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -16,6 +21,9 @@ public class UserService implements IUserService {
     private UsersRepository repository;
 
     private IBirthDateValidator birthDateValidator;
+
+    @Qualifier("jsonParser")
+    private IUserDataParser jsonParser;
 
     @Override
     public void add(Users users) {
@@ -39,5 +47,40 @@ public class UserService implements IUserService {
     @Override
     public List<Users> listAllUsers() {
         return (List<Users>) repository.findAll();
+    }
+
+    @Override
+    public void uploadUsersFromFile(MultipartFile fileToUpload) {
+
+        String fileName = fileToUpload.getOriginalFilename();
+
+        List<UsersPojo> receivedPojos;
+
+        if(fileName.endsWith(".json") || fileName.endsWith(".JSON") && !fileToUpload.isEmpty()){
+            receivedPojos = jsonParser.parseUserDataFromFile(fileToUpload);
+        }
+        else
+            throw new IllegalArgumentException("Unsupported format!");
+
+        List<Users> usersToUpload = receivedPojos.stream()
+                .map(this::pojoToEntity)
+                .collect(Collectors.toList());
+
+        repository.saveAll(usersToUpload);
+    }
+
+
+    private Users pojoToEntity(UsersPojo usersPojo){
+
+        Users convertedUser = new Users();
+
+        convertedUser.setEmail(usersPojo.getEmail());
+        convertedUser.setFirstName(usersPojo.getFirstName());
+        convertedUser.setLastName(usersPojo.getLastName());
+        convertedUser.setBirthDate(usersPojo.getBirthDate());
+        convertedUser.setAddress(usersPojo.getAddress());
+        convertedUser.setPhoneNumber(usersPojo.getPhoneNumber());
+
+        return convertedUser;
     }
 }

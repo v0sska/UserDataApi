@@ -20,6 +20,8 @@ public class UsersPojo {
 
     private String firstName;
 
+    private String lastName;
+
     private LocalDate birthDate;
 
     private String address;
