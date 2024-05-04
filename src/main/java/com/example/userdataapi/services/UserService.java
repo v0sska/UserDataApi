@@ -3,11 +3,13 @@ package com.example.userdataapi.services;
 import com.example.userdataapi.entities.Users;
 import com.example.userdataapi.interfaces.IUserService;
 import com.example.userdataapi.repositories.UsersRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class UserService implements IUserService {
 
     private UsersRepository repository;
@@ -29,6 +31,6 @@ public class UserService implements IUserService {
 
     @Override
     public List<Users> listAllUsers() {
-        return null;
+        return (List<Users>) repository.findAll();
     }
 }

@@ -9,7 +9,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import java.util.Date;
+import java.time.LocalDate;
+
 
 @Entity
 @Getter
@@ -29,16 +30,16 @@ public class Users {
     private String firstName;
 
     @NotNull
-    private Date bithDate;
+    private LocalDate birthDate;
 
     private String address;
 
     private String phoneNumber;
 
-    public Users(String email, String firstName, Date bithDate, String address, String phoneNumber) {
+    public Users(String email, String firstName, LocalDate birthDate, String address, String phoneNumber) {
         this.email = email;
         this.firstName = firstName;
-        this.bithDate = bithDate;
+        this.birthDate = birthDate;
         this.address = address;
         this.phoneNumber = phoneNumber;
     }
