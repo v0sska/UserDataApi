@@ -30,6 +30,9 @@ public class Users {
     private String firstName;
 
     @NotNull
+    private String lastName;
+
+    @NotNull
     private LocalDate birthDate;
 
     private String address;

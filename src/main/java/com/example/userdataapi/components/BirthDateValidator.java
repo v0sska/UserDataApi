@@ -1,9 +1,11 @@
 package com.example.userdataapi.components;
 
 import com.example.userdataapi.interfaces.IBirthDateValidator;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 
+@Component
 public class BirthDateValidator implements IBirthDateValidator {
 
     private LocalDate currentTime = LocalDate.now();
@@ -17,11 +19,10 @@ public class BirthDateValidator implements IBirthDateValidator {
 
             int validBirthDate = currentTime.getYear() - birthDateToCheck.getYear();
 
-            if(validBirthDate > 18)
-                return true;
-            else
-                return false;
+            boolean isValidBirthDate = validBirthDate > 18 ? true : false;
+
+            return isValidBirthDate;
+
         }
     }
-
 }
