@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
 
@@ -29,6 +30,15 @@ public class UserController {
         service.deleteById(id);
 
         return new ResponseEntity<>(Map.of("message", "User is deleted!"), HttpStatus.OK);
+    }
+
+    @PostMapping("/upload")
+    public ResponseEntity<Object> uploadUsersFromFile(@RequestParam("file") MultipartFile fileToUpload){
+
+        service.uploadUsersFromFile(fileToUpload);
+
+
+        return new ResponseEntity<>(Map.of("message", "Users is uploaded from file!"), HttpStatus.CREATED);
     }
 
 }
