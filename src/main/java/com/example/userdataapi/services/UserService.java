@@ -90,6 +90,26 @@ public class UserService implements IUserService {
 
     }
 
+    @Override
+    public void updateUserFields(Long id, Users userToUpdate) {
+        Users oldUser = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("User not found!"));
+
+        if(userToUpdate.getFirstName() != null)
+            oldUser.setFirstName(userToUpdate.getFirstName());
+        if(userToUpdate.getLastName() != null)
+            oldUser.setLastName(userToUpdate.getLastName());
+        if(userToUpdate.getBirthDate() != null)
+            oldUser.setBirthDate(userToUpdate.getBirthDate());
+        if(userToUpdate.getAddress() != null)
+            oldUser.setAddress(userToUpdate.getAddress());
+        if(userToUpdate.getPhoneNumber() != null)
+            oldUser.setPhoneNumber(userToUpdate.getPhoneNumber());
+        if(userToUpdate.getEmail() != null)
+            oldUser.setEmail(userToUpdate.getEmail());
+
+        repository.save(oldUser);
+    }
+
 
     private Users pojoToEntity(UsersPojo usersPojo){
 

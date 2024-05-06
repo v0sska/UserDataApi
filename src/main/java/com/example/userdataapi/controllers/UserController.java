@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -39,6 +41,18 @@ public class UserController {
 
 
         return new ResponseEntity<>(Map.of("message", "Users is uploaded from file!"), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{from}/{to}")
+    public List<Users> listUsersByBirthDateBetween(@PathVariable LocalDate from, @PathVariable LocalDate to){
+        return service.listUsersByBirthDateBetween(from, to);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateAllUserFields(@PathVariable Long id, @RequestBody Users userToUpdate){
+        service.updateAllUserFieldsById(id, userToUpdate);
+
+        return new ResponseEntity<>(Map.of("message", "User is updated!"), HttpStatus.OK);
     }
 
 }

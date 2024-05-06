@@ -20,4 +20,6 @@ public interface IUserService {
 
     List<Users> listUsersByBirthDateBetween(LocalDate fromBirthDate, LocalDate toBirthDate);
 
+    void updateUserFields(Long id, Users userToUpdate);
+
 }
