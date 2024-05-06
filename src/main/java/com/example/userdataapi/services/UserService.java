@@ -54,12 +54,6 @@ public class UserService implements IUserService {
         repository.save(oldUser);
     }
 
-    
-    @Override
-    public List<Users> listAllUsers() {
-        return (List<Users>) repository.findAll();
-    }
-
     @Override
     public void uploadUsersFromFile(MultipartFile fileToUpload) {
 

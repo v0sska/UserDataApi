@@ -61,9 +61,6 @@ public class UserController {
         service.updateUserFields(id, userToUpdate);
 
         return new ResponseEntity<>(Map.of("message", "User is updated!"), HttpStatus.OK);
-
-
-
     }
 
 }

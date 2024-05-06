@@ -14,8 +14,6 @@ public interface IUserService {
 
     void updateAllUserFieldsById(Long id, Users userToUpdate);
 
-    List<Users> listAllUsers();
-
     void uploadUsersFromFile(MultipartFile fileToUpload);
 
     List<Users> listUsersByBirthDateBetween(LocalDate fromBirthDate, LocalDate toBirthDate);
