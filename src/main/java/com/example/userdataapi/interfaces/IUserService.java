@@ -11,7 +11,7 @@ public interface IUserService {
 
     void deleteById(Long id);
 
-    void updateById(Users users, Long id);
+    void updateAllUserFieldsById(Long id, Users userToUpdate);
 
     List<Users> listAllUsers();
 

@@ -40,10 +40,20 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void updateById(Users users, Long id) {
+    public void updateAllUserFieldsById(Long id, Users userToUpdate) {
+        Users oldUser = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("User not found!"));
 
+        oldUser.setFirstName(userToUpdate.getFirstName());
+        oldUser.setLastName(userToUpdate.getLastName());
+        oldUser.setBirthDate(userToUpdate.getBirthDate());
+        oldUser.setAddress(userToUpdate.getAddress());
+        oldUser.setPhoneNumber(userToUpdate.getPhoneNumber());
+        oldUser.setEmail(userToUpdate.getEmail());
+
+        repository.save(oldUser);
     }
 
+    
     @Override
     public List<Users> listAllUsers() {
         return (List<Users>) repository.findAll();
