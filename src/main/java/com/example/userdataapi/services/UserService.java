@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -77,6 +78,16 @@ public class UserService implements IUserService {
                 .collect(Collectors.toList());
 
         repository.saveAll(usersToUpload);
+    }
+
+    @Override
+    public List<Users> listUsersByBirthDateBetween(LocalDate fromBirthDate, LocalDate toBirthDate) {
+
+        if(fromBirthDate.isBefore(toBirthDate))
+            return repository.findByBirthDateBetween(fromBirthDate, toBirthDate);
+        else
+            throw new IllegalArgumentException("From date must be before to date");
+
     }
 
 
