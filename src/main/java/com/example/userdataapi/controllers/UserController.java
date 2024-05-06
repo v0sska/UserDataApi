@@ -55,4 +55,15 @@ public class UserController {
         return new ResponseEntity<>(Map.of("message", "User is updated!"), HttpStatus.OK);
     }
 
+    @PatchMapping("/{id}")
+    public ResponseEntity<Object> updateUserFields(@PathVariable Long id, @RequestBody Users userToUpdate){
+
+        service.updateUserFields(id, userToUpdate);
+
+        return new ResponseEntity<>(Map.of("message", "User is updated!"), HttpStatus.OK);
+
+
+
+    }
+
 }
