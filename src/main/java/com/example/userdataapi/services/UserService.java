@@ -1,6 +1,7 @@
 package com.example.userdataapi.services;
 
 import com.example.userdataapi.entities.Users;
+import com.example.userdataapi.exceptions.UserException;
 import com.example.userdataapi.interfaces.IBirthDateValidator;
 import com.example.userdataapi.interfaces.IUserDataParser;
 import com.example.userdataapi.interfaces.IUserService;
@@ -32,7 +33,7 @@ public class UserService implements IUserService {
         if(birthDateValidator.validateUserBirthDate(users.getBirthDate()))
             repository.save(users);
         else
-            throw new IllegalArgumentException("User must be older than 18 years");
+            throw new UserException("User must be older than 18 years");
     }
 
     @Override
@@ -42,11 +43,16 @@ public class UserService implements IUserService {
 
     @Override
     public void updateAllUserFieldsById(Long id, Users userToUpdate) {
-        Users oldUser = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("User not found!"));
+        Users oldUser = repository.findById(id).orElseThrow(() -> new UserException("User not found!"));
 
         oldUser.setFirstName(userToUpdate.getFirstName());
         oldUser.setLastName(userToUpdate.getLastName());
-        oldUser.setBirthDate(userToUpdate.getBirthDate());
+
+        if(birthDateValidator.validateUserBirthDate(userToUpdate.getBirthDate()))
+            oldUser.setBirthDate(userToUpdate.getBirthDate());
+        else
+            throw new UserException("User must be older than 18 years");
+
         oldUser.setAddress(userToUpdate.getAddress());
         oldUser.setPhoneNumber(userToUpdate.getPhoneNumber());
         oldUser.setEmail(userToUpdate.getEmail());
@@ -65,7 +71,7 @@ public class UserService implements IUserService {
             receivedPojos = jsonParser.parseUserDataFromFile(fileToUpload);
         }
         else
-            throw new IllegalArgumentException("Unsupported format!");
+            throw new UserException("Unsupported format!");
 
         List<Users> usersToUpload = receivedPojos.stream()
                 .map(this::pojoToEntity)
@@ -80,19 +86,19 @@ public class UserService implements IUserService {
         if(fromBirthDate.isBefore(toBirthDate))
             return repository.findByBirthDateBetween(fromBirthDate, toBirthDate);
         else
-            throw new IllegalArgumentException("From date must be before to date");
+            throw new UserException("From date must be before to date");
 
     }
 
     @Override
     public void updateUserFields(Long id, Users userToUpdate) {
-        Users oldUser = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("User not found!"));
+        Users oldUser = repository.findById(id).orElseThrow(() -> new UserException("User not found!"));
 
         if(userToUpdate.getFirstName() != null)
             oldUser.setFirstName(userToUpdate.getFirstName());
         if(userToUpdate.getLastName() != null)
             oldUser.setLastName(userToUpdate.getLastName());
-        if(userToUpdate.getBirthDate() != null)
+        if(userToUpdate.getBirthDate() != null && birthDateValidator.validateUserBirthDate(userToUpdate.getBirthDate()))
             oldUser.setBirthDate(userToUpdate.getBirthDate());
         if(userToUpdate.getAddress() != null)
             oldUser.setAddress(userToUpdate.getAddress());
