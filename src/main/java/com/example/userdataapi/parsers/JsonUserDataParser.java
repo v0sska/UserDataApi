@@ -3,14 +3,10 @@ package com.example.userdataapi.parsers;
 import com.example.userdataapi.interfaces.IBirthDateValidator;
 import com.example.userdataapi.interfaces.IUserDataParser;
 import com.example.userdataapi.pojos.UsersPojo;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
