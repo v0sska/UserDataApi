@@ -23,7 +23,7 @@ paths:
           description: Bad request
         '500':
           description: Internal server error
-    /{idToDelete}:
+  /{idToDelete}:
       delete:
         summary: Delete user
         parameters:
@@ -38,7 +38,7 @@ paths:
             description: Entity is deleted!
           '400':
             description: Bad request
-    /{from}/{to}:
+  /{from}/{to}:
         get:
             summary: Get users by date of birth
             parameters:
@@ -65,7 +65,7 @@ paths:
                 description: Internal server error
             '409':
               description: From date must be before to date
-    /upload:
+  /upload:
         post:
             summary: Add user(s) from JSON file
             requestBody:
@@ -86,7 +86,7 @@ paths:
                 '500':
                     description: Internal Server error
 
-    /{id}:
+  /{Id}:
       put:
         summary: Update all user fields
         parameters:
@@ -111,7 +111,7 @@ paths:
             description: Internal server error
 
 
-    /{userId}:
+  /{id}:
       patch:
         summary: Update user fields
         parameters:

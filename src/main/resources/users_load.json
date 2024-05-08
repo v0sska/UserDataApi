@@ -45,5 +45,21 @@
     "birthDate": "2006-01-01",
     "address": "Volodymyra Velikogo st.",
     "phoneNumber" : "+380668345922"
+  },
+  {
+      "email" : "example@example.com",
+      "firstName": "John",
+      "lastName": "Doe",
+      "birthDate": "1995-12-15",
+      "address": "123 Main St.",
+      "phoneNumber" : "+1234567890"
+  },
+  {
+      "email" : "jane@example.com",
+      "firstName": "Jane",
+      "lastName": "Doe",
+      "birthDate": "1998-08-20",
+      "address": "456 Elm St.",
+      "phoneNumber" : "+0987654321"
   }
 ]
