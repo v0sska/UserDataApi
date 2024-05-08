@@ -1,0 +1,159 @@
+openapi: 3.0.0
+info:
+  title: /users
+  description: Api for tech task
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Local server
+paths:
+  /users:
+    post:
+      summary: Create a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Users'
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+    /{idToDelete}:
+      delete:
+        summary: Delete user
+        parameters:
+          - name: id
+            in: path
+            required: true
+            description: Delete user by id
+            schema:
+              type: integer
+        responses:
+          '200':
+            description: Entity is deleted!
+          '400':
+            description: Bad request
+    /{from}/{to}:
+        get:
+            summary: Get users by date of birth
+            parameters:
+              - name: from
+                in: path
+                required: true
+                description: Date of birth from
+                schema:
+                type: string
+                format: date
+              - name: to
+                in: path
+                required: true
+                description: Date of birth to
+                schema:
+                type: string
+                format: date
+            responses:
+            '200':
+                description: Users by date of birth
+            '400':
+                description: Bad request
+            '500':
+                description: Internal server error
+            '409':
+              description: From date must be before to date
+    /upload:
+        post:
+            summary: Add user(s) from JSON file
+            requestBody:
+                required: true
+                content:
+                    multipart/form-data:
+                        schema:
+                            type: object
+                            properties:
+                                file:
+                                    type: string
+                                    format: binary
+            responses:
+                '201':
+                    description: Users is uploaded from file!
+                '400':
+                    description: Bad request
+                '500':
+                    description: Internal Server error
+
+    /{id}:
+      put:
+        summary: Update all user fields
+        parameters:
+          - name: id
+            in: path
+            required: true
+            description: Update user by id
+            schema:
+              type: integer
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+        responses:
+          '200':
+            description: Updated
+          '400':
+            description: Bad request
+          '500':
+            description: Internal server error
+
+
+    /{userId}:
+      patch:
+        summary: Update user fields
+        parameters:
+          - name: id
+            in: path
+            required: true
+            description: Update user by id
+            schema:
+              type: integer
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+        responses:
+          '200':
+            description: Updated
+          '400':
+            description: Bad request
+          '500':
+            description: Internal server error
+
+
+
+
+components:
+  schemas:
+    Users:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        firstName:
+          type: string
+        lastName:
+          type: string
+        birthDate:
+          type: string
+          format: date
+        address:
+          type: string
+        phoneNumber:
+          type: string
