@@ -1,0 +1,49 @@
+[
+  {
+    "email" : "adsadslnjadsl@bimba.net",
+    "firstName": "Joe",
+    "lastName": "Boe",
+    "birthDate": "2002-05-04",
+    "address": "Volodymyra Velikogo st.",
+    "phoneNumber" : "+380668345922"
+  },
+  {
+    "email" : "bibl@bimba.net",
+    "firstName": "Stan",
+    "lastName": "Smith",
+    "birthDate": "2022-05-04",
+    "address": "Pecehrska st.",
+    "phoneNumber" : "+380668345922"
+  },
+  {
+
+    "lastName": "Boe",
+    "birthDate": "2002-05-04",
+    "address": "Oze st.",
+    "phoneNumber" : "+380668345922"
+  },
+  {
+    "email" : "adsadslnjadsl@sv.dot",
+    "firstName": "Maria",
+    "lastName": "fasafffas",
+    "birthDate": "2003-05-04",
+    "address": "Baker st.",
+    "phoneNumber" : "242442424224"
+  },
+  {
+    "email" : "rqoqt",
+    "firstName": "Kurva",
+    "lastName": "Bober",
+    "birthDate": "2004-02-05",
+    "address": "Bllalalalala",
+    "phoneNumber" : "355533535"
+  },
+  {
+    "email" : "weweew@azur.hui",
+    "firstName": "Bla",
+    "lastName": "Bla",
+    "birthDate": "2006-01-01",
+    "address": "Volodymyra Velikogo st.",
+    "phoneNumber" : "+380668345922"
+  }
+]
