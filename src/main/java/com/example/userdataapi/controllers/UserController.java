@@ -22,14 +22,14 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<Object> addUser(@RequestBody Users users){
-        service.add(users);
+        service.addUser(users);
 
         return new ResponseEntity<>(Map.of("message", "User is added!"), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteUserById(@PathVariable Long id){
-        service.deleteById(id);
+        service.deleteUserById(id);
 
         return new ResponseEntity<>(Map.of("message", "User is deleted!"), HttpStatus.OK);
     }
@@ -44,8 +44,8 @@ public class UserController {
     }
 
     @GetMapping("/{from}/{to}")
-    public List<Users> listUsersByBirthDateBetween(@PathVariable LocalDate from, @PathVariable LocalDate to){
-        return service.listUsersByBirthDateBetween(from, to);
+    public ResponseEntity<Object> listUsersByBirthDateBetween(@PathVariable LocalDate from, @PathVariable LocalDate to){
+        return new ResponseEntity<>(Map.of("data", service.listUsersByBirthDateBetween(from, to)), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
@@ -62,5 +62,4 @@ public class UserController {
 
         return new ResponseEntity<>(Map.of("message", "User is updated!"), HttpStatus.OK);
     }
-
 }

@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface IUserService {
 
-    void add(Users users);
+    void addUser(Users users);
 
-    void deleteById(Long id);
+    void deleteUserById(Long id);
 
     void updateAllUserFieldsById(Long id, Users userToUpdate);
 

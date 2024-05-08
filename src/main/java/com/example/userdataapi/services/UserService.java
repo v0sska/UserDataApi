@@ -28,7 +28,7 @@ public class UserService implements IUserService {
     private IUserDataParser jsonParser;
 
     @Override
-    public void add(Users users) {
+    public void addUser(Users users) {
 
         if(birthDateValidator.validateUserBirthDate(users.getBirthDate()))
             repository.save(users);
@@ -37,7 +37,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteUserById(Long id) {
         repository.deleteById(id);
     }
 

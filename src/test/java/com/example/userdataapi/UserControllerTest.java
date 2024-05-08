@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(UserController.class)
-public class UserControllerService {
+public class UserControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -57,7 +57,7 @@ public class UserControllerService {
                         .content(userJson))
                 .andExpect(status().isCreated());
 
-        verify(userService, times(1)).add(any(Users.class));
+        verify(userService, times(1)).addUser(any(Users.class));
     }
 
     @Test
@@ -68,7 +68,7 @@ public class UserControllerService {
         mockMvc.perform(MockMvcRequestBuilders.delete("/users/{id}", userId))
                 .andExpect(status().isOk());
 
-        verify(userService, times(1)).deleteById(userId);
+        verify(userService, times(1)).deleteUserById(userId);
 
     }
 
