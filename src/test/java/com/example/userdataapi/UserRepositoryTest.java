@@ -49,12 +49,10 @@ public class UserRepositoryTest {
 
         entityManager.flush();
 
-        // When
         LocalDate startDate = LocalDate.of(1990, 1, 1);
         LocalDate endDate = LocalDate.of(1995, 12, 31);
         List<Users> users = usersRepository.findByBirthDateBetween(startDate, endDate);
 
-        // Then
         assertThat(users).hasSize(2);
         assertThat(users).contains(user1, user2);
     }
